@@ -1,0 +1,32 @@
+---
+// Fragmento: banda a sangre con una cita enorme en cursiva (una frase de un libro, del guion o del canal).
+// `declaracion` (la cita), `autor` (de dónde sale: «De «La hora del levante» (2025)»), `imagen` opcional de fondo
+// a sangre con velo de tinta (sin imagen, tinta plena), `antetitulo` y `cta`. Sin cita, el `titulo` hace de cita;
+// sin ninguno de los dos no se pinta.
+import { seccion, cadena, enlace } from '../../data/site';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const cita = cadena(s?.declaracion) || cadena(s?.titulo);
+const autor = cadena(s?.autor);
+const cta = enlace(s?.cta);
+---
+
+{
+  s && cita && (
+    <section id={Astro.props.id} class="fragmento banda-tinta">
+      {s.imagen && <Imagen src={s.imagen} alt="" ancho={2100} alto={900} class="fragmento-fondo" />}
+      <div class="contenedor w-full py-20 md:py-28">
+        {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+        <figure class="mt-8">
+          <span class="fragmento-comilla" aria-hidden="true">“</span>
+          <blockquote class="fragmento-texto">
+            <p>{cita}</p>
+          </blockquote>
+          {autor && <figcaption class="maquina mt-8">{autor}</figcaption>}
+        </figure>
+        {cta && <a class="btn btn-claro mt-10" href={cta.url}>{cta.texto}</a>}
+      </div>
+    </section>
+  )
+}

@@ -1,0 +1,93 @@
+---
+// Libros: titular partido sobre papel; la obra destacada (`destacado: true` o, si no, la primera) en una fila
+// 50/50 a sangre sobre tinta (foto tocando el borde izquierdo, título enorme, estado, ficha y botón de compra);
+// el resto, en una rejilla de cubiertas tipográficas (2/3/4 columnas) con su foto en duotono si la tienen.
+// `obras: [{titulo, texto, anio, editorial, categoria, estado, imagen, url, destacado}]`; `cta` opcional.
+// Sin obras solo queda el titular (o nada si tampoco hay título ni texto).
+import { seccion, site, enlace, cadena, destino } from '../../data/site';
+import { altFicha } from '../../lib/seo';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const obras = s?.obras ?? [];
+const indice = Math.max(0, obras.findIndex((o) => o.destacado === true));
+const destacada = obras[indice];
+const resto = obras.filter((_, i) => i !== indice);
+const cta = enlace(s?.cta);
+const meta = (o: (typeof obras)[number]) => [cadena(o.categoria), cadena(o.editorial), cadena(o.anio)].filter(Boolean);
+---
+
+{
+  s && (destacada || s.titulo || s.texto) && (
+    <section id={Astro.props.id} class="banda-papel pt-16 md:pt-28">
+      <div class="contenedor">
+        <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} partido>
+          {cta && <a class="enlace-flecha mt-5" href={cta.url}>{cta.texto}</a>}
+        </Titular>
+      </div>
+      {destacada && (
+        <article class="fila-sangre banda-tinta">
+          <div class="fila-sangre-foto">
+            {cadena(destacada.imagen) ? (
+              <Imagen src={destacada.imagen} alt={altFicha(destacada)} ancho={1000} alto={1500} />
+            ) : (
+              <div class="cubierta tono-0 absolute inset-0 aspect-auto!" aria-hidden="true">
+                <span class="cubierta-autor">{site.nombre}</span>
+                <span class="cubierta-titulo">{destacada.titulo}</span>
+              </div>
+            )}
+          </div>
+          <div class="fila-sangre-texto fila-sangre-texto--der">
+            {cadena(destacada.estado) && <p class="estado">{destacada.estado}</p>}
+            <h3 class="obra-titulo">{destacada.titulo}</h3>
+            {meta(destacada).length > 0 && (
+              <p class="ficha-meta mt-5">{meta(destacada).map((m) => <span>{m}</span>)}</p>
+            )}
+            {cadena(destacada.texto) && <p class="suave mt-6 max-w-[34rem] text-lg">{destacada.texto}</p>}
+            {cadena(destacada.url) && (
+              <a class="btn mt-9" href={destacada.url} {...destino(destacada.url)}>
+                Comprar el libro <Icono nombre="externo" tam={16} />
+              </a>
+            )}
+          </div>
+        </article>
+      )}
+      {resto.length > 0 && (
+        <div class="contenedor py-16 md:py-24">
+          <ul class="cubiertas">
+            {resto.map((o, i) => (
+              <li>
+                <div class:list={['cubierta', `tono-${(i + 1) % 4}`]}>
+                  {cadena(o.imagen) && <Imagen src={o.imagen} alt={altFicha(o)} ancho={600} alto={900} />}
+                  <span class="cubierta-autor" aria-hidden="true">{site.nombre}</span>
+                  <span aria-hidden="true">
+                    <span class="cubierta-titulo block">{o.titulo}</span>
+                    {cadena(o.anio) && <span class="cubierta-anio mt-2 block">{o.anio}</span>}
+                  </span>
+                </div>
+                <div class="cubierta-ficha">
+                  <h3 class="text-[1.45rem] leading-tight md:text-[1.6rem]">{o.titulo}</h3>
+                  {(meta(o).length > 0 || cadena(o.estado)) && (
+                    <p class="ficha-meta mt-2">
+                      {meta(o).map((m) => <span>{m}</span>)}
+                      {cadena(o.estado) && <span class="text-primario">{o.estado}</span>}
+                    </p>
+                  )}
+                  {cadena(o.texto) && <p class="suave mt-3">{o.texto}</p>}
+                  {cadena(o.url) && (
+                    <a class="enlace-flecha mt-2" href={o.url} {...destino(o.url)}>
+                      Comprar<span class="sr-only"> «{o.titulo}»</span>
+                    </a>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {!destacada && <div class="pb-8" />}
+    </section>
+  )
+}

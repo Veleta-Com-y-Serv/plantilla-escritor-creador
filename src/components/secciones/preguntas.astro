@@ -1,0 +1,33 @@
+---
+// Preguntas frecuentes: banda de papel; titular a la izquierda (fijo al hacer scroll en escritorio) y acordeón
+// nativo (details/summary) a la derecha con las preguntas en didona y reglas de tinta. Sin preguntas no se pinta.
+import { seccion, parrafos } from '../../data/site';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const lista = (s?.preguntas ?? []).filter((p) => p?.pregunta);
+---
+
+{
+  s && lista.length > 0 && (
+    <section id={Astro.props.id} class="seccion banda-papel">
+      <div class="contenedor grid gap-10 lg:grid-cols-12 lg:gap-16">
+        <div class="lg:col-span-4">
+          <div class="lg:sticky lg:top-28">
+            <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} class="titular--estrecho mb-0!" />
+          </div>
+        </div>
+        <div class="preguntas lg:col-span-8">
+          {lista.map((p) => (
+            <details>
+              <summary>{p.pregunta}</summary>
+              <div class="space-y-3">
+                {parrafos(p.respuesta).map((t) => <p>{t}</p>)}
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

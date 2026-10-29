@@ -1,0 +1,51 @@
+---
+// Portada a pantalla casi completa: fila 7/5 con el texto sobre papel y la foto a sangre (toca el borde derecho
+// y arriba y abajo), y debajo una franja de tinta con el nombre en didona enorme de borde a borde.
+// Campos: antetitulo, titulo (h1), texto, imagen, etiquetas (cadena con «;»: «Novela; Relato; Pódcast»),
+// cta y cta_secundario. Sin imagen, el texto ocupa todo el ancho. Lo vacío no se pinta.
+import { seccion, site, enlace, partes } from '../../data/site';
+import { altHero } from '../../lib/seo';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string; primera?: boolean }
+const { id, primera = false } = Astro.props;
+const s = seccion(id);
+const cta = enlace(s?.cta);
+const cta2 = enlace(s?.cta_secundario);
+const etiquetas = partes(s?.etiquetas);
+const nombre = site.nombre.trim();
+---
+
+{
+  s && (
+    <section id={id} class="hero banda-papel">
+      <div class:list={['hero-rejilla', s.imagen && 'hero-rejilla--foto']}>
+        {s.imagen && (
+          <figure class="hero-foto">
+            <Imagen src={s.imagen} alt={altHero()} ancho={900} alto={1200} prioridad={primera} />
+          </figure>
+        )}
+        <div class="hero-col">
+          {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+          {s.titulo && <h1 class="hero-titulo">{s.titulo}</h1>}
+          {s.texto && <p class="hero-texto">{s.texto}</p>}
+          {etiquetas.length > 0 && (
+            <ul class="etiquetas" aria-label="Lo que hago">
+              {etiquetas.map((t) => <li>{t}</li>)}
+            </ul>
+          )}
+          {(cta || cta2) && (
+            <div class="mt-10 flex flex-wrap gap-3">
+              {cta && <a class="btn" href={cta.url}>{cta.texto}</a>}
+              {cta2 && <a class="btn-sec" href={cta2.url}>{cta2.texto}</a>}
+            </div>
+          )}
+        </div>
+      </div>
+      {nombre && (
+        <div class="hero-nombre" aria-hidden="true">
+          <span style={`--letras:${Math.max(nombre.length, 6)}`}>{nombre}</span>
+        </div>
+      )}
+    </section>
+  )
+}

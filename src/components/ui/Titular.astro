@@ -1,0 +1,34 @@
+---
+// Titular de sección. Adaptado de AstroWind (Headline.astro), © onWidget, MIT.
+// `partido`: título enorme a la izquierda y texto (y el contenido del slot, p. ej. un botón) a la derecha,
+// sobre una regla gruesa a todo el ancho del contenedor. Sin `partido`, antetítulo + título + texto apilados.
+interface Props { titulo?: string; antetitulo?: string; texto?: string; partido?: boolean; class?: string; nivel?: 1 | 2; grande?: boolean }
+const { titulo, antetitulo, texto, partido = false, class: clase = '', nivel = 2, grande = false } = Astro.props;
+const H = nivel === 1 ? 'h1' : 'h2';
+const conSlot = Astro.slots.has('default');
+---
+
+{
+  partido
+    ? (titulo || antetitulo || texto || conSlot) && (
+        <div class:list={['titular-partido', clase]}>
+          <div>
+            {antetitulo && <p class="antetitulo">{antetitulo}</p>}
+            {titulo && <H class:list={[grande ? 'titulo-sangre' : 'titulo-seccion']}>{titulo}</H>}
+          </div>
+          {(texto || conSlot) && (
+            <div>
+              {texto && <p class="titular-texto">{texto}</p>}
+              <slot />
+            </div>
+          )}
+        </div>
+      )
+    : (titulo || antetitulo || texto) && (
+        <div class:list={['titular', clase]}>
+          {antetitulo && <p class="antetitulo">{antetitulo}</p>}
+          {titulo && <H class:list={[grande ? 'titulo-sangre' : 'titulo-seccion']}>{titulo}</H>}
+          {texto && <p class="titular-texto">{texto}</p>}
+        </div>
+      )
+}

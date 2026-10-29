@@ -1,0 +1,21 @@
+---
+// Página no encontrada: «404» en didona enorme a sangre sobre bermellón y una frase de fe de erratas.
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+
+<Base titulo="Página no encontrada">
+  <section class="banda-lacre relative overflow-hidden">
+    <div class="contenedor flex min-h-[70svh] flex-col justify-center py-16 md:py-24">
+      <p class="antetitulo">Fe de erratas</p>
+      <h1 class="mt-4 font-display text-[clamp(7rem,30vw,26rem)] leading-[.8] tracking-[-0.04em]">404</h1>
+      <p class="mt-8 max-w-[36rem] font-display text-[clamp(1.6rem,3vw,2.4rem)] italic leading-tight">
+        Esta página no existe. Puede que el enlace esté mal o que la página se haya movido.
+      </p>
+      <div class="mt-10 flex flex-wrap gap-3">
+        <a class="btn btn-claro" href="/">Volver al inicio</a>
+        {site.contacto.email && <a class="btn-sec" href={`mailto:${site.contacto.email}`}>Escribir un correo</a>}
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,71 @@
+---
+// Pódcast o canal: banda de tinta a sangre con el nombre del programa en didona enorme a todo el ancho; debajo,
+// a la izquierda `texto`, `cta` (la plataforma donde se escucha) e `imagen` opcional; a la derecha los episodios
+// como el índice de un libro (número grande, título, texto, fecha y duración con puntos guía y botón de escuchar).
+// `episodios: [{numero, titulo, texto, duracion, fecha, url}]`. Sin episodios ni título, no se pinta.
+import { seccion, cadena, enlace, destino } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const episodios = s?.episodios ?? [];
+const cta = enlace(s?.cta);
+const lateral = !!(s && (s.texto || cta || s.imagen));
+---
+
+{
+  s && (episodios.length > 0 || s.titulo) && (
+    <section id={Astro.props.id} class="seccion banda-tinta overflow-hidden">
+      <div class="contenedor">
+        {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+        {s.titulo && <h2 class="titulo-sangre">{s.titulo}</h2>}
+        <div class:list={['mt-12 grid gap-12 md:mt-16', lateral && episodios.length > 0 && 'lg:grid-cols-12 lg:gap-16']}>
+          {lateral && (
+            <div class="lg:col-span-4">
+              {s.texto && <p class="suave text-lg">{s.texto}</p>}
+              {cta && (
+                <a class="btn mt-8" href={cta.url} {...destino(cta.url)}>
+                  {cta.texto}
+                </a>
+              )}
+              {s.imagen && <Imagen src={s.imagen} alt={altSeccion(s)} ancho={900} alto={1200} class="mt-10 hidden aspect-[3/4] w-full object-cover lg:block" />}
+            </div>
+          )}
+          {episodios.length > 0 && (
+            <ol class="indice lg:col-span-8">
+              {episodios.map((e) => {
+                const numero = cadena(e.numero);
+                const url = cadena(e.url);
+                return (
+                  <li>
+                    <p class="indice-num" aria-hidden={numero ? undefined : 'true'}>{numero || '·'}</p>
+                    <div>
+                      <h3 class="indice-titulo">
+                        {numero && <span class="sr-only">Episodio {numero}: </span>}
+                        {e.titulo}
+                      </h3>
+                      {cadena(e.texto) && <p class="suave mt-2 max-w-[40rem]">{e.texto}</p>}
+                    </div>
+                    {(cadena(e.fecha) || cadena(e.duracion) || url) && (
+                      <div class="indice-pie maquina">
+                        {cadena(e.fecha) && <span>{e.fecha}</span>}
+                        <span class="indice-guia" aria-hidden="true" />
+                        {cadena(e.duracion) && <span>{e.duracion}</span>}
+                        {url && (
+                          <a class="play" href={url} {...destino(url)} aria-label={`Escuchar «${e.titulo}»`}>
+                            <Icono nombre="play" tam={18} />
+                          </a>
+                        )}
+                      </div>
+                    )}
+                  </li>
+                );
+              })}
+            </ol>
+          )}
+        </div>
+      </div>
+    </section>
+  )
+}

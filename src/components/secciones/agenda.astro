@@ -1,0 +1,72 @@
+---
+// Agenda: filas de programa a todo el ancho del contenedor, separadas por reglas de tinta: el día en didona
+// enorme (si `fecha` empieza por el día: «14 de noviembre»), título, texto, lugar y hora y enlace «Más
+// información» si hay `url`. `eventos: [{fecha, hora, titulo, lugar, texto, url}]`; `cta` opcional en el titular.
+// Sin eventos no se pinta (no se inventan fechas).
+import { seccion, cadena, enlace, partirFecha, destino } from '../../data/site';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const eventos = s?.eventos ?? [];
+const cta = enlace(s?.cta);
+---
+
+{
+  s && eventos.length > 0 && (
+    <section id={Astro.props.id} class="seccion banda-papel">
+      <div class="contenedor">
+        <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} partido>
+          {cta && <a class="enlace-flecha mt-5" href={cta.url}>{cta.texto}</a>}
+        </Titular>
+        <ul class="programa">
+          {eventos.map((e) => {
+            const f = partirFecha(e.fecha);
+            const lugar = cadena(e.lugar);
+            const hora = cadena(e.hora);
+            const url = cadena(e.url);
+            return (
+              <li>
+                <div class="programa-fila">
+                  <p>
+                    {f.dia ? (
+                      <>
+                        <span class="programa-dia" aria-hidden="true">{f.dia}</span>
+                        <span class="programa-mes" aria-hidden="true">{f.resto}</span>
+                        <span class="sr-only">{cadena(e.fecha)}</span>
+                      </>
+                    ) : (
+                      f.resto && <span class="programa-mes">{f.resto}</span>
+                    )}
+                  </p>
+                  <div>
+                    <h3 class="programa-titulo">{e.titulo}</h3>
+                    {cadena(e.texto) && <p class="suave mt-2">{e.texto}</p>}
+                  </div>
+                  {(lugar || hora) && (
+                    <p class="programa-lugar">
+                      {lugar && (
+                        <span class="flex items-start gap-2">
+                          <Icono nombre="mapa" tam={18} class="mt-1 shrink-0 text-primario" />
+                          {lugar}
+                        </span>
+                      )}
+                      {hora && <span class="maquina mt-2 block">{hora}</span>}
+                    </p>
+                  )}
+                  {url && (
+                    <p class="programa-accion">
+                      <a class="enlace-flecha" href={url} {...destino(url)}>
+                        Más información<span class="sr-only"> sobre «{e.titulo}»</span>
+                      </a>
+                    </p>
+                  )}
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+  )
+}

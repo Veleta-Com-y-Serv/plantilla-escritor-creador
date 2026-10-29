@@ -1,0 +1,52 @@
+---
+// Newsletter: banda bermellón a sangre con el calderón «¶» gigante de fondo. A la izquierda, título enorme;
+// a la derecha `texto`, `items` (lo que trae cada carta, con raya), un formulario de alta que abre el correo
+// (mailto al email de site.yaml, con el asunto «Quiero recibir…») con el texto de `boton`, el `cta` opcional
+// (por ejemplo, la página de la plataforma de newsletter que use) y `nota` en pequeño.
+// Sin título ni texto no se pinta; sin email no hay formulario.
+import { seccion, site, cadena, enlace, destino } from '../../data/site';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const cta = enlace(s?.cta);
+const nota = cadena(s?.nota);
+const boton = cadena(s?.boton) || 'Apuntarme';
+const email = site.contacto.email;
+const asunto = `Quiero recibir ${cadena(s?.antetitulo) ? '«' + cadena(s?.antetitulo) + '»' : 'la newsletter'}`;
+const accion = email ? `mailto:${email}?subject=${encodeURIComponent(asunto)}` : '';
+const campo = `${Astro.props.id}-correo`;
+---
+
+{
+  s && (s.titulo || s.texto) && (
+    <section id={Astro.props.id} class="seccion banda-lacre relative overflow-hidden">
+      <span class="calderon-fondo" aria-hidden="true">¶</span>
+      <div class="contenedor relative grid gap-10 lg:grid-cols-12 lg:gap-16">
+        <div class="lg:col-span-7">
+          {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+          {s.titulo && <h2 class="titulo-sangre">{s.titulo}</h2>}
+        </div>
+        <div class="lg:col-span-5 lg:self-end">
+          {s.texto && <p class="text-lg">{s.texto}</p>}
+          {s.items.length > 0 && (
+            <ul class="lista-raya maquina mt-6">
+              {s.items.map((it) => <li>{it.titulo}</li>)}
+            </ul>
+          )}
+          {accion && (
+            <form class="suscripcion mt-8" action={accion} method="post" enctype="text/plain">
+              <label class="sr-only" for={campo}>Tu correo</label>
+              <input id={campo} name="correo" type="email" autocomplete="email" placeholder="Tu correo" required />
+              <button type="submit" class="btn btn-claro">{boton}</button>
+            </form>
+          )}
+          {cta && (
+            <a class="enlace-flecha mt-4" href={cta.url} {...destino(cta.url)}>
+              {cta.texto}
+            </a>
+          )}
+          {nota && <p class="mt-4 text-sm opacity-90">{nota}</p>}
+        </div>
+      </div>
+    </section>
+  )
+}

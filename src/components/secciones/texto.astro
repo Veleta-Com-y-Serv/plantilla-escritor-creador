@@ -1,0 +1,55 @@
+---
+// Apartado de texto genérico (site.yaml: `tipo: texto`): con `imagen`, fila 50/50 a sangre (foto a la derecha,
+// tocando el borde); sin imagen, titular a la izquierda y texto a la derecha en el contenedor. `declaracion`
+// opcional en cursiva, `items` con icono y `cta`. Lo usan los apartados nuevos que pide el cliente.
+import { seccion, parrafos, cadena, enlace } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const declaracion = cadena(s?.declaracion);
+const cta = enlace(s?.cta);
+const texto = parrafos(s?.texto);
+---
+
+{
+  s && (s.titulo || texto.length > 0 || declaracion || s.imagen) && (
+    <section id={Astro.props.id} class="banda-tostado">
+      <div class:list={[s.imagen ? 'fila-sangre' : 'contenedor seccion grid gap-10 lg:grid-cols-12 lg:gap-16']}>
+        <div class:list={[s.imagen ? 'fila-sangre-texto fila-sangre-texto--izq' : 'lg:col-span-5']}>
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} class="mb-0!" />
+          {declaracion && <p class="declaracion mt-8">{declaracion}</p>}
+          {s.imagen && texto.length > 0 && <div class="lectura mt-8 space-y-4 text-[1.1rem]">{texto.map((p) => <p>{p}</p>)}</div>}
+          {s.imagen && cta && <a class="btn mt-9" href={cta.url}>{cta.texto}</a>}
+        </div>
+        {s.imagen ? (
+          <div class="fila-sangre-foto">
+            <Imagen src={s.imagen} alt={altSeccion(s)} ancho={900} alto={1125} />
+          </div>
+        ) : (
+          <div class="lg:col-span-7">
+            {texto.length > 0 && <div class="lectura space-y-4 text-[1.1rem]">{texto.map((p) => <p>{p}</p>)}</div>}
+            {s.items.length > 0 && (
+              <ul class="credenciales mt-8">
+                {s.items.map((it) => (
+                  <li>
+                    <span class="grid size-11 place-items-center bg-texto text-fondo">
+                      <Icono nombre={it.icono} tam={20} />
+                    </span>
+                    <div>
+                      <p class="maquina font-semibold">{it.titulo}</p>
+                      {it.texto && <p class="suave mt-1">{it.texto}</p>}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {cta && <a class="btn mt-9" href={cta.url}>{cta.texto}</a>}
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}

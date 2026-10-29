@@ -1,0 +1,65 @@
+---
+// Contacto: `imagen` opcional como franja de foto a sangre (21:7) y debajo una fila 50/50 de borde a borde:
+// a la izquierda, sobre bermellón, titular enorme, `texto` y los datos de site.yaml → contacto en didona grande;
+// a la derecha, sobre papel tostado, el formulario (mailto) con desplegable de `opciones` («Prensa; Talleres…»)
+// y el texto de `boton`. Lo vacío no se pinta.
+import { seccion, site, tel, whatsapp, mapa, cadena, partes } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Imagen from '../ui/Imagen.astro';
+import FormularioContacto from '../ui/FormularioContacto.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const c = site.contacto;
+const opciones = partes(s?.opciones);
+const boton = cadena(s?.boton) || undefined;
+---
+
+{
+  s && (
+    <section id={Astro.props.id}>
+      {s.imagen && <Imagen src={s.imagen} alt={altSeccion(s)} ancho={2100} alto={700} class="franja-foto" />}
+      <div class="fila-sangre">
+        <div class="fila-sangre-texto fila-sangre-texto--izq banda-lacre self-stretch!">
+          {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+          {s.titulo && <h2 class="titulo-sangre">{s.titulo}</h2>}
+          {s.texto && <p class="suave mt-6 max-w-[32rem] text-lg">{s.texto}</p>}
+          <ul class="datos mt-10">
+            {c.email && (
+              <li>
+                <p class="maquina suave">Correo</p>
+                <a class="dato-grande" href={`mailto:${c.email}`}>{c.email}</a>
+              </li>
+            )}
+            {c.telefono && (
+              <li>
+                <p class="maquina suave">Teléfono</p>
+                <a class="dato-grande" href={tel(c.telefono)}>{c.telefono}</a>
+              </li>
+            )}
+            {c.whatsapp && (
+              <li>
+                <p class="maquina suave">WhatsApp</p>
+                <a class="dato-grande" href={whatsapp(c.whatsapp)} rel="noopener" target="_blank">{c.whatsapp}</a>
+              </li>
+            )}
+            {c.direccion && (
+              <li>
+                <p class="maquina suave">Dirección</p>
+                <a class="dato-grande text-[1.35rem]!" href={mapa(c.direccion)} rel="noopener" target="_blank">{c.direccion}</a>
+              </li>
+            )}
+            {c.horario && (
+              <li>
+                <p class="maquina suave">Horario</p>
+                <p class="mt-1 text-lg">{c.horario}</p>
+              </li>
+            )}
+          </ul>
+        </div>
+        <div class="fila-sangre-texto fila-sangre-texto--der banda-tostado self-stretch!">
+          <FormularioContacto opciones={opciones} boton={boton} />
+        </div>
+      </div>
+    </section>
+  )
+}

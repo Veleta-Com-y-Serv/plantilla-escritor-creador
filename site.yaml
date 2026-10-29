@@ -1,0 +1,158 @@
+# Contenido de la web. Es lo único que rellena la plataforma NoExpertise.
+# Las secciones se muestran en el orden de este fichero. Para ocultar una: activa: false.
+# Apartado nuevo: un id propio (es su ancla, /#id) con `tipo:` = el diseño de otra sección o `texto`.
+# Listas planas: nunca una lista dentro de un elemento de lista. Precios siempre entre comillas.
+nombre: Candela Soria
+eslogan: Escritora y voz del pódcast «Levante en la azotea», desde Cádiz.
+sector: escritor
+logo: ""          # ruta a una imagen en public/ (p. ej. /logo.svg). Vacío = nombre en texto con el calderón.
+colores:
+  primario: "#b8381f"
+  acento: "#e3a83b"
+  fondo: "#f3ede1"
+  texto: "#17171f"
+contacto:
+  telefono: "956 48 27 15"
+  email: hola@candelasoria.es
+  direccion: Calle Sacramento 14, 11001 Cádiz
+  horario: "Respondo de lunes a viernes, de 10:00 a 14:00."
+  whatsapp: "655 312 908"
+redes:
+  instagram: https://www.instagram.com/
+  facebook: ""
+  linkedin: ""
+  youtube: https://www.youtube.com/
+menu:
+  - { texto: Libros, url: "/#obras" }
+  - { texto: Pódcast, url: "/#episodios" }
+  - { texto: Sobre mí, url: "/#sobre" }
+  - { texto: Agenda, url: "/#agenda" }
+  - { texto: Preguntas, url: "/#preguntas" }
+  - { texto: Contacto, url: "/#contacto" }
+boton_cabecera: { texto: La carta del mes, url: "/#newsletter" }
+seo:
+  titulo: Candela Soria · Escritora y pódcast en Cádiz
+  descripcion: "Novelas y relatos junto al mar, el pódcast «Levante en la azotea» y talleres de escritura en Cádiz y online. Agenda y carta mensual."
+  tipo: ProfessionalService
+marca_pie: true
+
+secciones:
+  hero:
+    activa: true
+    antetitulo: Escritora · Pódcast · Talleres
+    titulo: Historias con sal y viento de levante.
+    texto: "Escribo novelas y relatos sobre la vida junto al mar, hablo cada semana del oficio de escribir y doy talleres para quien quiere empezar su primer libro."
+    imagen: /fotos/hero.jpg
+    etiquetas: "Novela; Relato; Pódcast; Talleres"
+    cta: { texto: Ver los libros, url: "/#obras" }
+    cta_secundario: { texto: Escuchar el pódcast, url: "/#episodios" }
+
+  obras:
+    activa: true
+    antetitulo: Libros
+    titulo: Lo que he publicado
+    texto: "Tres libros para adultos y uno para leer en voz alta. Están en las librerías y en la web de cada editorial; si quieres uno dedicado, escríbeme."
+    obras:
+      - { titulo: La hora del levante, texto: "Agosto en Cádiz. Una mujer vuelve a la casa de su abuela en el barrio de la Viña para venderla y se queda atrapada tres días por el levante, con una caja de cartas que nadie le había enseñado.", anio: "2025", editorial: Ediciones Bajamar, categoria: Novela, estado: Novedad, imagen: /fotos/obra-levante.jpg, url: "https://www.candelasoria.es/la-hora-del-levante", destacado: true }
+      - { titulo: Sal en los bolsillos, texto: "Doce relatos breves de gente que vive del mar o a su lado: mariscadores, una profesora de natación, un faro sin farero.", anio: "2022", editorial: Libros del Muelle, categoria: Relatos, estado: "", imagen: /fotos/obra-sal.jpg, url: "https://www.candelasoria.es/sal-en-los-bolsillos", destacado: false }
+      - { titulo: El faro de los gatos, texto: "Un cuento ilustrado para leer en voz alta sobre un gato que tiene miedo a la oscuridad y vive en un faro.", anio: "2023", editorial: Ediciones Bajamar, categoria: Infantil, estado: "", imagen: /fotos/obra-faro.jpg, url: "", destacado: false }
+      - { titulo: Azoteas, texto: "Crónicas de las azoteas de Cádiz: tendederos, vecinas, macetas y conversaciones que solo se tienen allí arriba.", anio: "2020", editorial: Libros del Muelle, categoria: Crónica, estado: Agotado, imagen: /fotos/obra-azoteas.jpg, url: "", destacado: false }
+    cta: { texto: Pedir un ejemplar dedicado, url: "/#contacto" }
+
+  fragmento:
+    activa: true
+    antetitulo: Un fragmento
+    declaracion: "En Cádiz el levante no sopla: empuja. Te despeina las certezas, te cierra las ventanas que dejaste abiertas y, cuando por fin se va, la ciudad entera huele a algo que acaba de empezar."
+    autor: "De «La hora del levante» (2025)"
+    imagen: /fotos/fragmento.jpg
+    cta: { texto: Recibir el primer capítulo, url: "/#newsletter" }
+
+  sobre:
+    activa: true
+    antetitulo: Sobre mí
+    titulo: Soy Candela. Escribo de madrugada y hablo de libros por la tarde.
+    declaracion: "Escribo para entender lo que no sé decir en voz alta."
+    texto: |
+      Nací en Cádiz, estudié Filología en Sevilla y pasé diez años corrigiendo textos ajenos antes de atreverme con los míos. Mi primer libro salió de una libreta que llevaba siempre en el bolso.
+
+      Escribo sobre lo que tengo cerca: el mar, los barrios, la gente que se queda cuando todos se van. Me interesan las historias pequeñas que, contadas despacio, se vuelven enormes.
+
+      Desde 2021 grabo «Levante en la azotea», un pódcast sobre el oficio de escribir, y doy talleres en grupos pequeños para quien quiere empezar o terminar su primer libro.
+    imagen: /fotos/estudio.jpg
+    items:
+      - { titulo: Cuatro libros publicados, texto: "Novela, relatos, crónica y un cuento infantil.", icono: libro }
+      - { titulo: Un pódcast cada miércoles, texto: "Conversaciones sobre escribir, leer y publicar.", icono: microfono }
+      - { titulo: Talleres de escritura, texto: "Presenciales en Cádiz y en línea, en grupos de ocho.", icono: pluma }
+    galeria:
+      - /fotos/azotea.jpg
+      - /fotos/cuadernos.jpg
+      - /fotos/taller.jpg
+    cta: { texto: Escríbeme, url: "/#contacto" }
+
+  episodios:
+    activa: true
+    antetitulo: El pódcast
+    titulo: Levante en la azotea
+    texto: "Cada miércoles, una conversación sin prisa sobre el oficio de escribir: cómo empezar, cómo seguir y cómo terminar. Con autoras, libreros, editoras y lectores."
+    imagen: /fotos/podcast.jpg
+    episodios:
+      - { numero: "48", titulo: "Escribir con calor: rutinas para el verano", texto: "Cómo sostener un proyecto largo cuando el cuerpo pide playa y siesta.", duracion: "42 min", fecha: "22 oct 2026", url: "https://www.youtube.com/" }
+      - { numero: "47", titulo: "La librera que lo lee todo", texto: "Con una librera de barrio que recomienda libros a sus vecinos desde hace treinta años.", duracion: "55 min", fecha: "15 oct 2026", url: "https://www.youtube.com/" }
+      - { numero: "46", titulo: "El primer capítulo, otra vez", texto: "Por qué casi todos reescribimos el comienzo cinco veces y qué hacer para no quedarse ahí.", duracion: "38 min", fecha: "8 oct 2026", url: "https://www.youtube.com/" }
+      - { numero: "45", titulo: "Cartas a una editora", texto: "Qué buscan las editoriales pequeñas y cómo preparar un manuscrito para enviarlo.", duracion: "47 min", fecha: "1 oct 2026", url: "https://www.youtube.com/" }
+    cta: { texto: Todos los episodios, url: "https://www.youtube.com/" }
+
+  agenda:
+    activa: true
+    antetitulo: Agenda
+    titulo: Dónde encontrarme
+    texto: "Presentaciones, clubes de lectura y talleres. Si quieres que vaya a tu librería, biblioteca o instituto, escríbeme."
+    eventos:
+      - { fecha: "14 de noviembre", hora: "19:00", titulo: "Presentación de «La hora del levante»", lugar: "Librería del Pasaje, Cádiz", texto: "Lectura de un capítulo, charla con el público y firma de ejemplares.", url: "/#contacto" }
+      - { fecha: "28 de noviembre", hora: "18:30", titulo: Club de lectura de la biblioteca, lugar: "Biblioteca del barrio de Santa María, Cádiz", texto: "Hablamos de «Sal en los bolsillos» con el club de los jueves.", url: "" }
+      - { fecha: "13 de enero", hora: "10:00", titulo: "Taller «Tu primer capítulo»", lugar: "En línea, por videollamada", texto: "Ocho sesiones, una por semana, con lecturas y correcciones en grupo.", url: "/#contacto" }
+      - { fecha: "7 de febrero", hora: "12:00", titulo: Encuentro con lectores jóvenes, lugar: "Instituto de la Caleta, Cádiz", texto: "Charla sobre cómo nace una historia, para alumnos de bachillerato.", url: "" }
+    cta: { texto: Invitarme a tu ciudad, url: "/#contacto" }
+
+  newsletter:
+    activa: true
+    antetitulo: La carta del mes
+    titulo: Una carta al mes, sin ruido.
+    texto: "El primer domingo de cada mes te escribo una carta corta: en qué estoy trabajando, un libro que me ha gustado y las fechas nuevas antes que nadie."
+    items:
+      - { titulo: Lo que estoy escribiendo }
+      - { titulo: Un libro recomendado }
+      - { titulo: Talleres y fechas antes que nadie }
+    boton: Apuntarme
+    nota: "Sin publicidad. Te das de baja cuando quieras respondiendo a cualquier carta."
+    cta: { texto: Leer cartas anteriores, url: "https://www.candelasoria.es/cartas" }
+
+  prensa:
+    activa: true
+    antetitulo: Prensa y lectores
+    titulo: Lo que se dice de los libros
+    testimonios:
+      - { texto: "Una novela que se lee con el pelo revuelto. Soria escribe el levante como si fuera un personaje más, y es el mejor de todos.", autor: Revista Mar de Fondo, nota: "Sobre «La hora del levante»" }
+      - { texto: "Relatos breves, exactos y muy gaditanos, sin caer nunca en la postal.", autor: Suplemento Letras del Sur, nota: "Sobre «Sal en los bolsillos»" }
+      - { texto: "Lo leí en dos tardes en la playa y ya lo he regalado tres veces.", autor: "Pilar M., lectora", nota: "Sobre «La hora del levante»" }
+      - { texto: "Es el pódcast que pongo cuando me cuesta sentarme a escribir. Siempre salgo con una idea.", autor: "Andrés R., oyente", nota: "Sobre «Levante en la azotea»" }
+
+  preguntas:
+    activa: true
+    antetitulo: Preguntas frecuentes
+    titulo: Antes de escribirme
+    preguntas:
+      - { pregunta: "¿Puedo conseguir un ejemplar dedicado?", respuesta: "Sí. Escríbeme y te digo en qué librerías de Cádiz quedan ejemplares firmados o te lo dedico y te lo envío por correo." }
+      - { pregunta: "¿Vas a colegios, bibliotecas o clubes de lectura?", respuesta: "Sí, me encanta. Cuéntame la fecha, el lugar y con qué grupo sería, y lo vemos. También hago encuentros por videollamada." }
+      - { pregunta: "¿Cómo son los talleres de escritura?", respuesta: "Grupos de ocho personas, ocho semanas y una sesión semanal de dos horas, en Cádiz o en línea. Escribimos, leemos en voz alta y corregimos juntos." }
+      - { pregunta: "¿Puedo proponer un invitado para el pódcast?", respuesta: "Claro. Mándame su nombre, a qué se dedica y por qué crees que tendría algo que contar sobre el oficio de escribir." }
+      - { pregunta: "¿Lees manuscritos?", respuesta: "No puedo leer manuscritos sueltos, pero en los talleres trabajamos con los textos de cada persona y te doy una lectura detallada." }
+
+  contacto:
+    activa: true
+    antetitulo: Contacto
+    titulo: Escríbeme
+    texto: "Para prensa, presentaciones, talleres o propuestas para el pódcast. Contesto todos los correos, aunque a veces tarde unos días."
+    imagen: /fotos/contacto.jpg
+    opciones: "Prensa; Presentaciones y charlas; Talleres de escritura; Pódcast; Otra cosa"
+    boton: Enviar mensaje

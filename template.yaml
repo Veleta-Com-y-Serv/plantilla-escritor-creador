@@ -1,0 +1,93 @@
+# Metadatos de la plantilla para el catálogo de NoExpertise.
+id: escritor-creador
+nombre: Escritor y creador de contenido
+descripcion: Web tipográfica para escritores, pódcast y creadores, con libros, episodios, agenda y carta mensual.
+sectores:
+  - { id: escritor, nombre: Escritor }
+  - { id: podcast, nombre: Pódcast }
+  - { id: creador, nombre: Creador de contenido }
+  - { id: youtuber, nombre: YouTuber }
+  - { id: formador-online, nombre: Formador en línea }
+secciones:
+  - { id: hero, nombre: Portada }
+  - { id: obras, nombre: Libros }
+  - { id: fragmento, nombre: Fragmento }
+  - { id: sobre, nombre: Sobre mí }
+  - { id: episodios, nombre: Pódcast }
+  - { id: agenda, nombre: Agenda }
+  - { id: newsletter, nombre: Newsletter }
+  - { id: prensa, nombre: Prensa y lectores }
+  - { id: preguntas, nombre: Preguntas frecuentes }
+  - { id: contacto, nombre: Contacto }
+estilo: tipografico
+plan_minimo: gratis
+version: 1.0.0
+base: astrowind
+demo_url: https://demo-plantilla-escritor-creador.noexpertise.com
+activa: true
+orden: 470
+
+# Asistente de puesta en marcha (NoExpertise): un paso por pantalla. Rutas del site sin índices;
+# tipos: texto y lista (la IA propone), datos, fotos, eleccion (colores y logo) y repaso.
+asistente:
+  - id: negocio
+    titulo: "Tú y lo que creas"
+    pregunta: "¿Cómo te llamas y qué creas? Libros, un pódcast, un canal, cursos…"
+    ayuda: "Qué escribes o grabas, para quién y desde dónde. Con eso preparo la portada y cómo sales en Google."
+    tipo: texto
+    campos: [nombre, eslogan, seo.titulo, seo.descripcion, secciones.hero.antetitulo, secciones.hero.titulo, secciones.hero.texto, secciones.hero.etiquetas]
+  - id: contacto
+    titulo: "Cómo te encuentran"
+    pregunta: "¿Cómo te pueden escribir o llamar, y dónde estás en redes?"
+    ayuda: "Solo lo que quieras que se vea. Lo que dejes vacío no sale en tu web."
+    tipo: datos
+    campos: [contacto.email, contacto.telefono, contacto.whatsapp, contacto.direccion, contacto.horario, redes.instagram, redes.youtube, redes.facebook, redes.linkedin]
+  - id: obras
+    titulo: "Tus libros"
+    pregunta: "¿Qué has publicado? Uno por línea: el título, el año, la editorial y de qué va."
+    ayuda: "Si tienes un enlace para comprarlo, añádelo. Si lo prefieres, ponlos luego en Contenido."
+    tipo: lista
+    campos: [secciones.obras.obras]
+  - id: episodios
+    titulo: "Tu pódcast o tu canal"
+    pregunta: "¿Cómo se llama tu pódcast o tu canal y de qué hablas? Dime también los últimos episodios, uno por línea."
+    ayuda: "Si no tienes pódcast ni canal, sáltate este paso y lo ocultamos."
+    tipo: lista
+    campos: [secciones.episodios.episodios]
+  - id: sobre
+    titulo: "Sobre ti"
+    pregunta: "Cuéntame tu historia: de dónde eres, cómo empezaste y sobre qué te gusta escribir o hablar."
+    tipo: texto
+    campos: [secciones.sobre.titulo, secciones.sobre.declaracion, secciones.sobre.texto, secciones.sobre.items, secciones.fragmento.declaracion, secciones.fragmento.autor]
+  - id: agenda
+    titulo: "Tu agenda"
+    pregunta: "¿Tienes presentaciones, talleres o charlas próximas? Una por línea, con la fecha, la hora y el lugar."
+    ayuda: "Si lo prefieres, añádelas luego en Contenido."
+    tipo: lista
+    campos: [secciones.agenda.eventos]
+  - id: newsletter
+    titulo: "Tu newsletter"
+    pregunta: "¿Mandas una newsletter o una carta a tus lectores? ¿Cada cuánto y qué cuentas en ella?"
+    ayuda: "Quien se apunte te escribirá a tu correo. Si usas una plataforma de newsletter, pega su enlace luego en Contenido."
+    tipo: texto
+    campos: [secciones.newsletter.titulo, secciones.newsletter.texto, secciones.newsletter.items, secciones.newsletter.nota]
+  - id: preguntas
+    titulo: "Preguntas frecuentes"
+    pregunta: "¿Qué te preguntan más a menudo tus lectores, oyentes o quien quiere contratarte? Escribe cada pregunta y lo que respondes."
+    ayuda: "Si lo prefieres, añádelas luego en Contenido."
+    tipo: lista
+    campos: [secciones.preguntas.preguntas]
+  - id: fotos
+    titulo: "Tus fotos"
+    pregunta: "Pon una foto de portada, las de tus libros y alguna de tu espacio de trabajo."
+    ayuda: "Sube las tuyas o elige una del banco. Las que no cambies se quedan como están."
+    tipo: fotos
+    campos: [secciones.hero.imagen, secciones.fragmento.imagen, secciones.sobre.imagen, secciones.sobre.galeria, secciones.episodios.imagen, secciones.contacto.imagen]
+  - id: aspecto
+    titulo: "Colores y logo"
+    pregunta: "Elige los colores de tu web y, si tienes, tu logo."
+    tipo: eleccion
+    campos: [colores.primario, colores.acento, logo]
+  - id: repaso
+    titulo: "Repaso"
+    tipo: repaso
