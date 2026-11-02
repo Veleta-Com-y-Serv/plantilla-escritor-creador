@@ -4,8 +4,10 @@
 // el resto, en una rejilla de cubiertas tipográficas (2/3/4 columnas) con su foto en duotono si la tienen.
 // `obras: [{titulo, texto, anio, editorial, categoria, estado, imagen, url, destacado}]`; `cta` opcional.
 // Sin obras solo queda el titular (o nada si tampoco hay título ni texto).
+// Las obras con `detalle` tienen página propia (/obras/<slug>/): su título enlaza a ella.
 import { seccion, site, enlace, cadena, destino } from '../../data/site';
 import { altFicha } from '../../lib/seo';
+import { enlaceDe } from '../../lib/paginas';
 import Titular from '../ui/Titular.astro';
 import Imagen from '../ui/Imagen.astro';
 import Icono from '../ui/Icono.astro';
@@ -41,11 +43,12 @@ const meta = (o: (typeof obras)[number]) => [cadena(o.categoria), cadena(o.edito
           </div>
           <div class="fila-sangre-texto fila-sangre-texto--der">
             {cadena(destacada.estado) && <p class="estado">{destacada.estado}</p>}
-            <h3 class="obra-titulo">{destacada.titulo}</h3>
+            <h3 class="obra-titulo">{enlaceDe(destacada) ? <a href={enlaceDe(destacada)} class="obra-enlace">{destacada.titulo}</a> : destacada.titulo}</h3>
             {meta(destacada).length > 0 && (
               <p class="ficha-meta mt-5">{meta(destacada).map((m) => <span>{m}</span>)}</p>
             )}
             {cadena(destacada.texto) && <p class="suave mt-6 max-w-[34rem] text-lg">{destacada.texto}</p>}
+            {enlaceDe(destacada) && <p class="mt-6"><a class="enlace-flecha" href={enlaceDe(destacada)}>Ver más sobre el libro</a></p>}
             {cadena(destacada.url) && (
               <a class="btn mt-9" href={destacada.url} {...destino(destacada.url)}>
                 Comprar el libro <Icono nombre="externo" tam={16} />
@@ -68,7 +71,7 @@ const meta = (o: (typeof obras)[number]) => [cadena(o.categoria), cadena(o.edito
                   </span>
                 </div>
                 <div class="cubierta-ficha">
-                  <h3 class="text-[1.45rem] leading-tight md:text-[1.6rem]">{o.titulo}</h3>
+                  <h3 class="text-[1.45rem] leading-tight md:text-[1.6rem]">{enlaceDe(o) ? <a href={enlaceDe(o)} class="obra-enlace">{o.titulo}</a> : o.titulo}</h3>
                   {(meta(o).length > 0 || cadena(o.estado)) && (
                     <p class="ficha-meta mt-2">
                       {meta(o).map((m) => <span>{m}</span>)}
@@ -76,6 +79,7 @@ const meta = (o: (typeof obras)[number]) => [cadena(o.categoria), cadena(o.edito
                     </p>
                   )}
                   {cadena(o.texto) && <p class="suave mt-3">{o.texto}</p>}
+                  {enlaceDe(o) && <p><a class="enlace-flecha" href={enlaceDe(o)} aria-hidden="true" tabindex="-1">Ver más</a></p>}
                   {cadena(o.url) && (
                     <a class="enlace-flecha mt-2" href={o.url} {...destino(o.url)}>
                       Comprar<span class="sr-only"> «{o.titulo}»</span>

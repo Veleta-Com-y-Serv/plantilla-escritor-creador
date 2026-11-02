@@ -146,6 +146,8 @@
   .cubierta-titulo { font-family: var(--fuente-titulos); font-size: clamp(1.1rem, 2.6vw, 2.35rem); line-height: .98; letter-spacing: -0.01em; }
   .cubierta-anio { font-family: var(--fuente-titulos); font-style: italic; font-size: 1rem; opacity: .85; }
   @media (min-width: 768px) { .cubierta { padding: 1.4rem; } .cubierta-autor { font-size: .68rem; } }
+  .obra-enlace { text-decoration: none; }
+  .obra-enlace:hover { text-decoration: underline; text-decoration-thickness: 3px; text-decoration-color: var(--marca); text-underline-offset: .12em; }
   .tono-0 { --tono: var(--c-primario); }
   .tono-1 { --tono: color-mix(in srgb, var(--c-texto) 92%, var(--c-primario)); }
   .tono-2 { --tono: color-mix(in srgb, var(--c-acento) 50%, var(--c-texto)); }

@@ -64,3 +64,8 @@ atardecer, cuadernos y mesa de taller (franja), micrófono de pódcast (episodio
 - No usar la serif de `psicologia-terapia` (Iowan/Palatino) ni la serif fina de `tienda-moda`: aquí manda la didona
   con la monoespaciada.
 - No inventar premios, cifras de ventas ni reseñas de medios reales: el ejemplo usa medios ficticios.
+
+## Páginas propias (fichas)
+Con la misma piel que la portada: cabecera y pie de la plantilla, migas (Inicio › Sección › Elemento), hero con la foto del
+elemento (sin foto, su icono), `detalle` en párrafos, tabla de datos, caja de contacto, galería (`imagenes`) y otros elementos
+de la misma lista.

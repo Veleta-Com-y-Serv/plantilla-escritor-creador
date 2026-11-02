@@ -53,10 +53,66 @@ secciones:
     titulo: Lo que he publicado
     texto: "Tres libros para adultos y uno para leer en voz alta. Están en las librerías y en la web de cada editorial; si quieres uno dedicado, escríbeme."
     obras:
-      - { titulo: La hora del levante, texto: "Agosto en Cádiz. Una mujer vuelve a la casa de su abuela en el barrio de la Viña para venderla y se queda atrapada tres días por el levante, con una caja de cartas que nadie le había enseñado.", anio: "2025", editorial: Ediciones Bajamar, categoria: Novela, estado: Novedad, imagen: /fotos/obra-levante.jpg, url: "https://www.candelasoria.es/la-hora-del-levante", destacado: true }
-      - { titulo: Sal en los bolsillos, texto: "Doce relatos breves de gente que vive del mar o a su lado: mariscadores, una profesora de natación, un faro sin farero.", anio: "2022", editorial: Libros del Muelle, categoria: Relatos, estado: "", imagen: /fotos/obra-sal.jpg, url: "https://www.candelasoria.es/sal-en-los-bolsillos", destacado: false }
-      - { titulo: El faro de los gatos, texto: "Un cuento ilustrado para leer en voz alta sobre un gato que tiene miedo a la oscuridad y vive en un faro.", anio: "2023", editorial: Ediciones Bajamar, categoria: Infantil, estado: "", imagen: /fotos/obra-faro.jpg, url: "", destacado: false }
-      - { titulo: Azoteas, texto: "Crónicas de las azoteas de Cádiz: tendederos, vecinas, macetas y conversaciones que solo se tienen allí arriba.", anio: "2020", editorial: Libros del Muelle, categoria: Crónica, estado: Agotado, imagen: /fotos/obra-azoteas.jpg, url: "", destacado: false }
+      - titulo: La hora del levante
+        texto: "Agosto en Cádiz. Una mujer vuelve a la casa de su abuela en el barrio de la Viña para venderla y se queda atrapada tres días por el levante, con una caja de cartas que nadie le había enseñado."
+        anio: "2025"
+        editorial: Ediciones Bajamar
+        categoria: Novela
+        estado: Novedad
+        imagen: /fotos/obra-levante.jpg
+        url: "https://www.candelasoria.es/la-hora-del-levante"
+        destacado: true
+        detalle: |
+          Es una novela de un solo escenario: la casa de la abuela, en el barrio de la Viña, con sus azulejos, su patio y un balcón que da a la calle por donde sube el viento. La protagonista llega con el propósito de vaciarla y venderla, y el levante, que en Cádiz no es un tiempo sino un estado de ánimo, la deja sin salida.
+
+          Lo que empieza como una limpieza se convierte en una conversación con los muertos. Cada cajón trae una carta, cada carta una versión distinta de la misma familia, y la narradora tiene que decidir a quién cree. Escribí el libro de madrugada, con las ventanas abiertas, y creo que se nota.
+
+          Es una lectura para quien disfruta de las historias lentas, de los diálogos que dicen una cosa y significan otra y de las ciudades convertidas en personaje. Se lee en un fin de semana, mejor con el mar cerca. Si quieres un ejemplar con dedicatoria, escríbeme desde la página de contacto.
+      - titulo: Sal en los bolsillos
+        texto: "Doce relatos breves de gente que vive del mar o a su lado: mariscadores, una profesora de natación, un faro sin farero."
+        anio: "2022"
+        editorial: Libros del Muelle
+        categoria: Relatos
+        estado: ""
+        imagen: /fotos/obra-sal.jpg
+        url: "https://www.candelasoria.es/sal-en-los-bolsillos"
+        destacado: false
+        detalle: |
+          Es un libro de relatos breves, de los que se leen de una sentada o se dejan a medias en la mesilla. Todos tienen algo en común: sus personajes viven del mar o muy cerca de él. Hay mariscadores que salen con la marea baja, una profesora de natación que enseña a flotar a quien nunca se ha atrevido, un faro sin farero al que sigue llegando correo.
+
+          Quise escribir sobre el trabajo y la costumbre más que sobre la postal. Por eso aparecen manos agrietadas, madrugones, deudas pequeñas y favores que se devuelven años después. El tono cambia de un cuento a otro: algunos son tristes, otros casi cómicos, y un par se quedan en el aire a propósito.
+
+          Es un buen primer libro mío para quien no me ha leído nunca, y también para quien prefiere la forma corta. Funciona bien para regalar, porque cada lector acaba eligiendo un relato favorito distinto y luego quiere comentarlo con alguien.
+      - titulo: El faro de los gatos
+        texto: "Un cuento ilustrado para leer en voz alta sobre un gato que tiene miedo a la oscuridad y vive en un faro."
+        anio: "2023"
+        editorial: Ediciones Bajamar
+        categoria: Infantil
+        estado: ""
+        imagen: /fotos/obra-faro.jpg
+        url: ""
+        destacado: false
+        detalle: |
+          Es un cuento ilustrado pensado para leerse en voz alta, con tiempo y con la luz baja. Su protagonista es un gato que vive en un faro y que, aunque su oficio es acompañar la luz, tiene miedo a la oscuridad. La historia sigue sus noches, los ruidos de la torre y los animales que le ayudan a descubrir que la oscuridad también tiene su música.
+
+          Lo escribí para esa hora del día en que los niños se resisten a dormir y los adultos están cansados. Las frases son cortas, hay repeticiones que invitan a participar y unas cuantas pausas pensadas para que el que lee haga la voz del viento o del mar.
+
+          Es un libro para compartir entre generaciones: lo disfrutan los más pequeños y también quien lo lee, porque habla del miedo sin sermonear. Lo uso en las lecturas con colegios y bibliotecas, donde los niños acaban opinando sobre cómo debería acabar la historia, y casi siempre tienen razón.
+      - titulo: Azoteas
+        texto: "Crónicas de las azoteas de Cádiz: tendederos, vecinas, macetas y conversaciones que solo se tienen allí arriba."
+        anio: "2020"
+        editorial: Libros del Muelle
+        categoria: Crónica
+        estado: Agotado
+        imagen: /fotos/obra-azoteas.jpg
+        url: ""
+        destacado: false
+        detalle: |
+          Es un libro de crónicas sobre un lugar que casi nadie fotografía: las azoteas de Cádiz. Allí arriba hay tendederos, macetas, antenas, gatos, vecinas que se asoman a hablar de cualquier cosa y conversaciones que no tendrían lugar en la calle ni en el salón. Subí a muchas de ellas, siempre invitada, y me quedé a escuchar.
+
+          Cada texto parte de una azotea y de la persona que la usa: quien tiende la ropa antes de que salga el sol, quien cuida un pequeño huerto en cajones de pescado, quien sube a fumar y a pensar. Me importaba más lo que se cuenta que lo que se ve, aunque Cádiz desde arriba es difícil de ignorar.
+
+          La edición está agotada y no hay reimpresión prevista, por eso lo menciono con cariño. Si lo buscas, prueba en las librerías de segunda mano de la ciudad o escríbeme: de vez en cuando aparece algún ejemplar suelto entre mis cajas.
     cta: { texto: Pedir un ejemplar dedicado, url: "/#contacto" }
 
   fragmento:

@@ -1,0 +1,176 @@
+---
+// Ficha de un libro con `detalle` (src/lib/paginas.ts, listas de src/data/fichas.ts): /obras/<slug>/.
+// Diseño tipográfico: banda de tinta a sangre con migas, título enorme y la cubierta tipográfica (o la foto en
+// duotono) a un lado; papel con el `detalle` en columna de lectura con capitular, y al lado la tabla de datos
+// con reglas gruesas y la caja de contacto en bermellón; galería sobre papel tostado; y otras obras en cubiertas.
+import Base from '../../layouts/Base.astro';
+import Imagen from '../../components/ui/Imagen.astro';
+import Icono from '../../components/ui/Icono.astro';
+import Titular from '../../components/ui/Titular.astro';
+import { seccion, site, tel, whatsapp } from '../../data/site';
+import { fichas, relacionadas, resumen } from '../../lib/paginas';
+import type { Ficha } from '../../lib/paginas';
+import { altGaleria, jsonLdFicha, jsonLdMigas, urlBase } from '../../lib/seo';
+
+export function getStaticPaths() {
+  return fichas().map((f) => ({ params: { coleccion: f.def.ruta, slug: f.slug }, props: { f } }));
+}
+
+interface Props { f: Ficha }
+const { f } = Astro.props;
+const base = urlBase(Astro.site);
+const nombreSeccion = String(f.seccion.antetitulo || f.seccion.titulo || f.def.nombre).trim();
+const migas = [
+  { nombre: 'Inicio', ruta: '/' },
+  { nombre: nombreSeccion, ruta: `/#${f.idSeccion}` },
+  { nombre: f.titulo, ruta: f.url },
+];
+const c = site.contacto;
+const contacto = seccion('contacto') ? '/#contacto' : site.boton_cabecera?.url || '/#contacto';
+const wa = whatsapp(c.whatsapp, `Hola, quiero información sobre ${f.titulo}`);
+const estado = f.datos.find((d) => d.clave === 'estado')?.valor ?? '';
+const anio = f.datos.find((d) => d.clave === 'anio')?.valor ?? '';
+const datos = f.datos.filter((d) => d.clave !== 'precio' && d.clave !== 'estado');
+const otras = relacionadas(f, 3);
+const descripcion = resumen(f.texto || f.detalle[0] || '');
+---
+
+<Base titulo={f.titulo} descripcion={descripcion} imagen={f.imagen} ld={[jsonLdMigas(base, migas), jsonLdFicha(base, f)]}>
+  <section class="banda-tinta ficha-cabeza">
+    <div class="contenedor">
+      <nav aria-label="Migas de pan" class="migas">
+        <ol>
+          {migas.map((m, i) => (
+            <li>{i < migas.length - 1 ? <a href={m.ruta}>{m.nombre}</a> : <span aria-current="page">{m.nombre}</span>}</li>
+          ))}
+        </ol>
+      </nav>
+      <div class="ficha-hero">
+        <div class="ficha-hero-texto">
+          <p class="antetitulo">{f.categoria || f.def.nombre}</p>
+          <h1 class="titulo-sangre ficha-titulo">{f.titulo}</h1>
+          {estado && <p class="estado mt-6">{estado}</p>}
+          {f.texto && <p class="ficha-lead">{f.texto}</p>}
+          <div class="ficha-botones">
+            <a class="btn" href={contacto}>Pedir un ejemplar dedicado</a>
+            {wa && <a class="btn-sec" href={wa} target="_blank" rel="noopener"><Icono nombre="whatsapp" tam={18} /> WhatsApp</a>}
+          </div>
+        </div>
+        <div class="ficha-cubierta-caja">
+          <div class="cubierta tono-0 ficha-cubierta">
+            {f.imagen && <Imagen src={f.imagen} alt="" ancho={800} alto={1200} prioridad />}
+            <span class="cubierta-autor" aria-hidden="true">{site.nombre}</span>
+            <span aria-hidden="true">
+              <span class="cubierta-titulo block">{f.titulo}</span>
+              {anio && <span class="cubierta-anio mt-2 block">{anio}</span>}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="banda-papel py-16 md:py-24">
+    <div class="contenedor ficha-cuerpo">
+      <article class="texto-lectura ficha-detalle">
+        {f.detalle.map((p) => <p>{p}</p>)}
+      </article>
+      <aside class="ficha-lado">
+        {(datos.length > 0 || f.precio) && (
+          <div class="ficha-datos">
+            <h2 class="ficha-lado-titulo maquina">La ficha</h2>
+            <dl>
+              {f.precio && <div><dt>Precio</dt><dd>{f.precio}</dd></div>}
+              {datos.map((d) => <div><dt>{d.etiqueta}</dt><dd>{d.valor}</dd></div>)}
+            </dl>
+          </div>
+        )}
+        <div class="ficha-contacto banda-lacre">
+          <p class="ficha-contacto-titulo">¿Lo quieres dedicado?</p>
+          <p>Escríbeme y te cuento cómo conseguir un ejemplar con unas palabras a mano.</p>
+          <a class="btn btn-claro" href={contacto}>Escríbeme</a>
+          {c.telefono && <a class="ficha-tel" href={tel(c.telefono)}><Icono nombre="telefono" tam={18} /> {c.telefono}</a>}
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  {f.imagenes.length > 0 && (
+    <section class="banda-tostado py-12 md:py-16" aria-label={`Fotos de ${f.titulo}`}>
+      <div class="contenedor">
+        <ul class="ficha-galeria">
+          {f.imagenes.map((src, i) => (
+            <li><Imagen src={src} alt={`${f.titulo}: ${altGaleria(i).toLowerCase()}`} ancho={800} alto={600} class="h-full w-full object-cover" /></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  {otras.length > 0 && (
+    <section class="banda-papel py-16 md:py-24">
+      <div class="contenedor">
+        <Titular antetitulo={nombreSeccion} titulo="Otras obras" partido>
+          <a class="enlace-flecha mt-5" href={`/#${f.idSeccion}`}>Ver todos los libros</a>
+        </Titular>
+        <ul class="ficha-otras">
+          {otras.map((o, i) => (
+            <li class="ficha-otra">
+              <div class:list={['cubierta', `tono-${(i + 1) % 4}`]} aria-hidden="true">
+                {o.imagen && <Imagen src={o.imagen} alt="" ancho={600} alto={900} />}
+                <span class="cubierta-autor">{site.nombre}</span>
+                <span class="cubierta-titulo block">{o.titulo}</span>
+              </div>
+              <h3 class="mt-4 text-[1.45rem] leading-tight"><a href={o.url} class="ficha-otra-enlace">{o.titulo}</a></h3>
+              {o.texto && <p class="suave mt-2">{o.texto}</p>}
+              <span class="enlace-flecha mt-1" aria-hidden="true">Ver más <Icono nombre="flecha" tam={16} /></span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+</Base>
+
+<style>
+  .ficha-cabeza { padding-block: clamp(1.5rem, 3vw, 2.5rem) clamp(3rem, 7vw, 6rem); }
+  .migas ol { display: flex; flex-wrap: wrap; gap: .25rem .5rem; font-family: var(--fuente-maquina); font-size: .74rem; letter-spacing: .12em; text-transform: uppercase; }
+  .migas li { display: inline-flex; align-items: center; gap: .5rem; min-width: 0; }
+  .migas li + li::before { content: "/"; color: var(--c-acento); }
+  .migas a { text-decoration: underline; text-underline-offset: .3em; min-height: 2.75rem; display: inline-flex; align-items: center; }
+  .migas [aria-current] { opacity: .75; overflow-wrap: anywhere; }
+  .ficha-hero { display: grid; gap: 2.5rem; margin-top: clamp(1rem, 3vw, 2rem); align-items: center; }
+  .ficha-titulo { font-size: clamp(2.6rem, 9vw, 7rem); overflow-wrap: anywhere; }
+  .ficha-lead { margin-top: 1.5rem; max-width: 36rem; font-size: 1.2rem; color: var(--suave); }
+  .ficha-botones { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
+  .ficha-botones a { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; }
+  .ficha-cubierta-caja { max-width: 18rem; width: 100%; }
+  .ficha-cubierta .cubierta-titulo { font-size: clamp(1.4rem, 5vw, 2.2rem); }
+  .ficha-cuerpo { display: grid; gap: 3.5rem; }
+  .ficha-detalle { max-width: var(--lectura); font-size: 1.15rem; }
+  .ficha-lado { display: grid; gap: 1.75rem; align-content: start; }
+  .ficha-lado-titulo { padding-bottom: .75rem; border-bottom: 3px solid var(--c-texto); }
+  .ficha-datos dl > div { display: flex; justify-content: space-between; gap: 1rem; padding: .85rem 0; border-bottom: 1px solid var(--linea); }
+  .ficha-datos dt { font-family: var(--fuente-maquina); font-size: .74rem; letter-spacing: .12em; text-transform: uppercase; color: var(--suave); }
+  .ficha-datos dd { text-align: right; min-width: 0; overflow-wrap: anywhere; }
+  .ficha-contacto { display: grid; gap: .9rem; padding: 1.75rem 1.5rem; }
+  .ficha-contacto-titulo { font-family: var(--fuente-titulos); font-size: 1.9rem; line-height: 1; }
+  .ficha-contacto .btn { display: inline-flex; align-items: center; justify-content: center; }
+  .ficha-tel { display: inline-flex; align-items: center; gap: .5rem; min-height: 2.75rem; font-family: var(--fuente-maquina); letter-spacing: .08em; text-decoration: none; }
+  .ficha-galeria { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); }
+  .ficha-galeria li { aspect-ratio: 4 / 3; overflow: hidden; }
+  .ficha-otras { display: grid; gap: 2.5rem 2rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); }
+  .ficha-otra { position: relative; display: flex; flex-direction: column; align-items: flex-start; }
+  .ficha-otra .cubierta { width: 100%; max-width: 18rem; }
+  .ficha-otra-enlace { text-decoration: none; }
+  .ficha-otra-enlace::after { content: ""; position: absolute; inset: 0; }
+  .ficha-otra-enlace:focus-visible { outline: none; }
+  .ficha-otra:has(.ficha-otra-enlace:focus-visible) { outline: 2px solid var(--c-primario); outline-offset: 4px; }
+  @media (min-width: 768px) { .ficha-hero { grid-template-columns: minmax(0, 1fr) 17rem; gap: 3rem; } }
+  @media (min-width: 1024px) {
+    .ficha-hero { grid-template-columns: minmax(0, 1fr) 21rem; gap: 5rem; }
+    .ficha-cubierta-caja { max-width: none; }
+    .ficha-cuerpo { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 6rem; align-items: start; }
+    .ficha-lado { position: sticky; top: 6.5rem; }
+  }
+</style>
