@@ -21,7 +21,7 @@ secciones:
   - { id: contacto, nombre: Contacto }
 estilo: tipografico
 plan_minimo: gratis
-version: 1.1.0
+version: 1.2.0
 base: astrowind
 demo_url: https://demo-plantilla-escritor-creador.noexpertise.com
 activa: true
@@ -30,6 +30,13 @@ orden: 470
 # Páginas propias (docs/plantillas.md § Fichas por elemento y páginas por zona). Espejo en src/data/fichas.ts.
 fichas:
   - { lista: obras, campo: obras, ruta: obras, nombre: Obra, tipo: Book }
+
+# Varias páginas (docs/plantillas.md § Varias páginas): reparto recomendado al activar «Varias páginas».
+# Inicio se queda con la portada y lo que no esté en ninguna página (aquí, pódcast, agenda).
+paginas:
+  - { ruta: obras, titulo: Obras, secciones: "obras; fragmento" }
+  - { ruta: sobre-mi, titulo: Sobre mí, secciones: "sobre; prensa" }
+  - { ruta: contacto, titulo: Contacto, secciones: "newsletter; preguntas; contacto" }
 
 # Asistente de puesta en marcha (NoExpertise): un paso por pantalla. Rutas del site sin índices;
 # tipos: texto y lista (la IA propone), datos, fotos, eleccion (colores y logo) y repaso.

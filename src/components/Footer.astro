@@ -4,6 +4,7 @@
 // «Web creada con NoExpertise» se muestra si site.yaml → marca_pie no es false (plan gratis).
 import { site, tel, whatsapp, mapa, seccion, cadena } from '../data/site';
 import Icono from './ui/Icono.astro';
+import { enlace } from '../lib/multipagina';
 interface Props { variante?: string }
 const { variante = 'tipografico' } = Astro.props;
 const c = site.contacto;
@@ -65,7 +66,7 @@ const anio = new Date().getFullYear();
           <div>
             <p class="pie-titulo">{cadena(carta.antetitulo) || 'Newsletter'}</p>
             {cadena(carta.titulo) && <p class="font-display text-2xl leading-tight">{carta.titulo}</p>}
-            <a class="enlace-flecha mt-3" href="/#newsletter">Apuntarme</a>
+            <a class="enlace-flecha mt-3" href={enlace('/#newsletter')}>Apuntarme</a>
           </div>
         )
       }
